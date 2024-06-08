@@ -3,7 +3,6 @@ package com.security.demosecurity.config;
 import com.security.demosecurity.account.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -31,9 +30,7 @@ public class SecurityConfig implements WebSecurityCustomizer {
                     .requestMatchers("/admin").hasRole(ADMIN)
                     .anyRequest().authenticated();
             })
-            .formLogin((formLogin)->{
-                
-            })
+            .formLogin((formLogin)->{})
             .sessionManagement((sessionManager)->{
                 sessionManager
                     .sessionFixation().changeSessionId()

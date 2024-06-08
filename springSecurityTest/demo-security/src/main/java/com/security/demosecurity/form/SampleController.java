@@ -2,6 +2,7 @@ package com.security.demosecurity.form;
 
 import com.security.demosecurity.common.SecurityLogger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,13 +27,16 @@ public class SampleController {
 
     @GetMapping("/")
     public ModelAndView getMethodName(ModelAndView mav, Principal principal) {
-        if(Optional.ofNullable(principal).isPresent()){
+        if (Optional.ofNullable(principal).isPresent()) {
             mav.addObject("message", "Hello ," + principal.getName());
         } else {
             mav.addObject("message", "Hello Spring Security!!");
         }
 
-        
+        Optional<SecurityContext> context = Optional
+                .ofNullable(SecurityContextHolder.getContext())
+                .filter(SecurityContext.class::isInstance);
+
         mav.setViewName("index");
 
         return mav;
@@ -42,7 +46,7 @@ public class SampleController {
     public ModelAndView info(ModelAndView mav) {
         mav.addObject("message", "Info");
         mav.setViewName("info");
-        
+
         return mav;
     }
 
@@ -50,7 +54,7 @@ public class SampleController {
     public ModelAndView dashboard(ModelAndView mav, Principal principal) {
         mav.addObject("message", "Hello ," + principal.getName());
         mav.setViewName("dashboard");
-        
+
         return mav;
     }
 
@@ -58,7 +62,7 @@ public class SampleController {
     public ModelAndView admin(ModelAndView mav, Principal principal) {
         mav.addObject("message", "Hello Admin ," + principal.getName());
         mav.setViewName("admin");
-        
+
         return mav;
     }
 
