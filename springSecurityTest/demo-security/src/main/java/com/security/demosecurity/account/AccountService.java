@@ -23,7 +23,7 @@ public class AccountService implements UserDetailsService {
             throw new UsernameNotFoundException(username);
         }
 
-        return getBuild(account);
+        return new UserAccount(account);
     }
 
     private static UserDetails getBuild(Account account) {
